@@ -1,0 +1,85 @@
+input.onButtonPressed(Button.A, function () {
+    neZha.setMotorSpeed(neZha.MotorList.M1, -60)
+})
+input.onButtonPressed(Button.AB, function () {
+    no_detectar = 1
+    neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 120)
+    neZha.setMotorSpeed(neZha.MotorList.M1, 60)
+    basic.pause(2000)
+    neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 180)
+    neZha.setMotorSpeed(neZha.MotorList.M1, 0)
+    basic.pause(250)
+    neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 240)
+    neZha.setMotorSpeed(neZha.MotorList.M1, -60)
+    basic.pause(2150)
+    neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 180)
+    neZha.setMotorSpeed(neZha.MotorList.M1, 60)
+    basic.pause(500)
+    no_detectar = 0
+})
+input.onButtonPressed(Button.B, function () {
+    neZha.setMotorSpeed(neZha.MotorList.M1, 60)
+})
+let no_detectar2 = 0
+let d = 0
+let c = 0
+let b = 0
+let a = 0
+let no_detectar = 0
+neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 180)
+PlanetX_AILens.initModule()
+PlanetX_AILens.switchfunc(PlanetX_AILens.FuncList.Color)
+basic.forever(function () {
+    if (no_detectar == 0) {
+        a = PlanetX_Basic.ultrasoundSensor(PlanetX_Basic.DigitalRJPin.J1, PlanetX_Basic.Distance_Unit_List.Distance_Unit_cm)
+        b = PlanetX_Basic.ultrasoundSensor(PlanetX_Basic.DigitalRJPin.J3, PlanetX_Basic.Distance_Unit_List.Distance_Unit_cm)
+        c = PlanetX_Basic.ultrasoundSensor(PlanetX_Basic.DigitalRJPin.J2, PlanetX_Basic.Distance_Unit_List.Distance_Unit_cm)
+        d = PlanetX_Basic.ultrasoundSensor(PlanetX_Basic.DigitalRJPin.J4, PlanetX_Basic.Distance_Unit_List.Distance_Unit_cm)
+        if (a >= 4 && a <= 45) {
+            neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 240)
+            basic.pause(1500)
+            neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 180)
+        }
+        if (b >= 2 && b <= 8) {
+            neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 140)
+            basic.pause(500)
+            neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 180)
+        }
+        if (c >= 2 && c <= 8) {
+            neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 230)
+            basic.pause(500)
+            neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 180)
+        }
+        if (d >= 4 && d <= 45) {
+            neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 230)
+            basic.pause(1500)
+            neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 180)
+        }
+    }
+    PlanetX_AILens.cameraImage()
+    if (PlanetX_AILens.colorCheck(PlanetX_AILens.ColorLs.red)) {
+        no_detectar2 = 1
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 240)
+        basic.pause(1500)
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 120)
+        basic.pause(2000)
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 240)
+        basic.pause(500)
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 180)
+        no_detectar2 = 0
+    }
+    if (PlanetX_AILens.colorCheck(PlanetX_AILens.ColorLs.green)) {
+        no_detectar2 = 1
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 120)
+        basic.pause(1500)
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 240)
+        basic.pause(2000)
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 120)
+        basic.pause(500)
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 180)
+        no_detectar2 = 0
+    }
+})
+loops.everyInterval(78000, function () {
+    neZha.stopMotor(neZha.MotorList.M1)
+})

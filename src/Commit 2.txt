@@ -1,0 +1,30 @@
+input.onButtonPressed(Button.A, function () {
+    neZha.setMotorSpeed(neZha.MotorList.M1, -60)
+})
+input.onButtonPressed(Button.B, function () {
+    neZha.setMotorSpeed(neZha.MotorList.M1, 60)
+})
+neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 180)
+PlanetX_AILens.initModule()
+PlanetX_AILens.switchfunc(PlanetX_AILens.FuncList.Color)
+basic.forever(function () {
+    PlanetX_AILens.cameraImage()
+    if (PlanetX_AILens.colorCheck(PlanetX_AILens.ColorLs.red)) {
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 240)
+        basic.pause(1500)
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 120)
+        basic.pause(2000)
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 240)
+        basic.pause(500)
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 180)
+    }
+    if (PlanetX_AILens.colorCheck(PlanetX_AILens.ColorLs.green)) {
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 120)
+        basic.pause(1500)
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 240)
+        basic.pause(2000)
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 120)
+        basic.pause(500)
+        neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 180)
+    }
+})
